@@ -1,11 +1,16 @@
-local soundIsRestricted = {}
-soundIsRestricted["weapons/airboat/airboat_gun_lastshot1.wav"] = true
-soundIsRestricted["weapons/airboat/airboat_gun_lastshot2.wav"] = true
-soundIsRestricted["ambient/gas/cannister_loop.wav"]            = true
+local soundIsRestricted = {
+    ["WeaponDissolve.Beam"]                       = true,
+    ["ambient/gas/cannister_loop.wav"]            = true,
+    ["weapons/airboat/airboat_gun_lastshot1.wav"] = true,
+    ["weapons/airboat/airboat_gun_lastshot2.wav"] = true,
+}
 
 local function shouldPlaySound( data )
     local path = data.SoundName
     if soundIsRestricted[path] then return false end
+
+    local original = data.OriginalSoundName
+    if soundIsRestricted[original] then return false end
 end
 
 local hookName = "CFC_MuteRestrictedSounds"
